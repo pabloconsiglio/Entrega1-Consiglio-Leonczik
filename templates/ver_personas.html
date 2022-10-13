@@ -7,9 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    
-    {% for persona in persona %}
-            <li>{{persona}}<li>
+    <p>Listado de personas:<p>
+    {% for persona in personas %}
+            <li>{{persona.nombre}}<li>
     {% endfor %}
     
 </body>
