@@ -3,6 +3,7 @@ from datetime import datetime
 from django.template import Context, Template, loader
 from django.shortcuts import render,redirect
 import random
+from home.forms import PersonaFormulario, BusquedaPersonaFormulario
 
 from home.models import Persona
 
@@ -37,17 +38,21 @@ def crear_persona(request):
         persona = Persona(nombre=nombre, apellido=apellido, edad=random.randrange(1,99), fecha_nacimiento=datetime.now())
         persona.save()
         return redirect('personas_casamiento')
-    return render(request, 'crear_persona.html', {})
+    formulario = PersonaFormulario
+    return render(request, 'crear_persona.html', {'formulario':formulario})
     
 def personas_casamiento(request):
     
-    personas = Persona.objects.all()
+    nombre = request.GET.get('nombre', None)
     
-    # template = loader.get_template('ver_personas.html')
-    # template_renderizado = template.render({'personas': personas})
+    if nombre:
+        personas = Persona.objects.filter(nombre__icontains=nombre)
+    else:
+        personas = Persona.objects.all()
     
-    # return HttpResponse(template_renderizado)
-    return render(request, 'ver_personas.html', {'personas': personas})
+    formulario = BusquedaPersonaFormulario()
+    
+    return render(request, 'ver_personas.html', {'personas': personas, 'formulario':formulario})
 
 def index(request):
     return render(request, 'index.html')

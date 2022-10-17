@@ -6,14 +6,10 @@
 {% block holis %}
 <form action={% url 'crear_persona' %} method="POST">
     {% csrf_token %}
-    <p>
-        Nombre:
-        <input type="text" name="nombre" placeholder="Nombre">
-    <p>
-    <p>    
-        Apellido:
-        <input type="text" name="apellido" placeholder="Apellido">
-    <p>
+    <table>
+    {{formulario}}
+    </table>
+    
     <button>Crear</button>
 
 </form>

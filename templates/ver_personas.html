@@ -2,8 +2,19 @@
 {% block holis %}
     <a class="navbar-brand" href={% url 'index' %}>Index</a>
     <p>Personas que asistirán al casamiento:<p>
+
+    <form action={% url 'personas_casamiento' %} method="GET">
+
+        {{formulario}}
+            
+        <button>Buscar</button>
+        
+    </form>    
+<p>
     {% for persona in personas %}
-            <li>{{persona.nombre}}<li>
+            <li>{{persona.nombre}} {{persona.apellido}} {{persona.edad}}<li>
     {% endfor %}
+</ul>
+
     
 {% endblock holis %}
